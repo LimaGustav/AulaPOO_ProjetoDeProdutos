@@ -6,6 +6,7 @@ namespace ProjetoProduto.Classes
 {
     public class Produto : IProduto
     {
+        // Atributos
         private int Codigo { get; set; }
         private string NomeProduto { get; set; }
         private float Preco { get; set; }
@@ -14,7 +15,7 @@ namespace ProjetoProduto.Classes
         private Usuario CadastradoPor { get; set; }
         private List<Produto> ListaDeProdutos { get; set; }
         
-
+        // Construtores
         public Produto() {
 
         }
@@ -27,6 +28,8 @@ namespace ProjetoProduto.Classes
             this.Marca = _marca;
             this.CadastradoPor = _cadastradoPor;
         }
+
+        // Métodos
         public string Cadastrar(Produto produto)
         {
             ListaDeProdutos.Add(produto);
