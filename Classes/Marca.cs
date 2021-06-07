@@ -13,17 +13,19 @@ namespace ProjetoProduto.Classes
         List<Marca> listaMarcas = new List<Marca>();
         public string Cadastrar(Marca marca)
         {
-            throw new NotImplementedException();
+            listaMarcas.Add(marca);
+            return ($"Marca {marca.NomeMarca} cadastrada");
         }
 
         public string Deletar(Marca marca)
         {
-            throw new NotImplementedException();
+            listaMarcas.Remove(marca);
+            return ($"Marca {marca.NomeMarca} deletada");
         }
 
         public List<Marca> Listar()
         {
-            throw new NotImplementedException();
+            return listaMarcas;
         }
     }
 }
