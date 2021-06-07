@@ -6,10 +6,12 @@ namespace ProjetoProduto.Classes
 {
     public class Marca : IMarca
     {
+        // Atributos
         private int Codigo { get; set; }
         private string NomeMarca { get; set; }
         private DateTime DataCadastro { get; set; }
 
+        // Construtores
         public Marca() {
 
         }
@@ -19,8 +21,11 @@ namespace ProjetoProduto.Classes
             this.NomeMarca = _nomeMarca;
             this.DataCadastro = _dataCadastro;
         }
-
+        
+        // Lista de Marcas
         List<Marca> listaMarcas = new List<Marca>();
+
+        // Métodos
         public string Cadastrar(Marca marca)
         {
             listaMarcas.Add(marca);
