@@ -14,7 +14,7 @@ namespace ProjetoProduto.Classes
                 Logado = false;
                 return ($"{usuario.Nome} saiu");
             }
-            return ($"{usuario.Nome} já está deslogado")
+            return ($"{usuario.Nome} já está deslogado");
         }
 
         public string Logar(Usuario usuario)
