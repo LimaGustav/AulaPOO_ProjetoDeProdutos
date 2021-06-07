@@ -14,6 +14,19 @@ namespace ProjetoProduto.Classes
         private Usuario CadastradoPor { get; set; }
         private List<Produto> ListaDeProdutos { get; set; }
         
+
+        public Produto() {
+
+        }
+
+        public Produto(int _codigo, string _nomeProduto, float _preco, DateTime _dataCadastro, Marca _marca, Usuario _cadastradoPor ) {
+            this.Codigo = _codigo;
+            this.NomeProduto = _nomeProduto;
+            this.Preco = _preco;
+            this.DataCadastro = _dataCadastro;
+            this.Marca = _marca;
+            this.CadastradoPor = _cadastradoPor;
+        }
         public string Cadastrar(Produto produto)
         {
             ListaDeProdutos.Add(produto);
