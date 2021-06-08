@@ -20,11 +20,11 @@ namespace ProjetoProduto.Classes
 
         }
 
-        public Produto(int _codigo, string _nomeProduto, float _preco, DateTime _dataCadastro, Marca _marca, Usuario _cadastradoPor ) {
+        public Produto(int _codigo, string _nomeProduto, float _preco, Marca _marca, Usuario _cadastradoPor ) {
             this.Codigo = _codigo;
             this.NomeProduto = _nomeProduto;
             this.Preco = _preco;
-            this.DataCadastro = _dataCadastro;
+            this.DataCadastro = DateTime.Now;
             this.Marca = _marca;
             this.CadastradoPor = _cadastradoPor;
         }
