@@ -33,7 +33,7 @@ namespace ProjetoProduto.Classes
         public string Cadastrar(Usuario usuario)
         {
             usuariosCadastrados.Add(usuario);
-            return ($"Seja Bem Vindo {usuario.Nome}");
+            return ($"{usuario.Nome} cadastrado com sucesso. ");
         }
 
         public string Deletar(Usuario usuario)
