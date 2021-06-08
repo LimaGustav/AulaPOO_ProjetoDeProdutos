@@ -16,10 +16,10 @@ namespace ProjetoProduto.Classes
 
         }
 
-        public Marca(int _codigo, string _nomeMarca, DateTime _dataCadastro) {
+        public Marca(int _codigo, string _nomeMarca) {
             this.Codigo = _codigo;
             this.NomeMarca = _nomeMarca;
-            this.DataCadastro = _dataCadastro;
+            this.DataCadastro = DateTime.Now;
         }
         
         // Lista de Marcas
