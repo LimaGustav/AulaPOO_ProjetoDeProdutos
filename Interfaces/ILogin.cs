@@ -1,3 +1,5 @@
+using ProjetoProduto.Classes;
+
 namespace ProjetoProduto.Interfaces
 {
     public interface ILogin
