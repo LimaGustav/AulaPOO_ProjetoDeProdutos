@@ -21,12 +21,12 @@ namespace ProjetoProduto.Classes
 
         }
         
-        public Usuario(int _codigo, string _nome, string _email, string _senha, DateTime _dataCadastro) {
+        public Usuario(int _codigo, string _nome, string _email, string _senha) {
             this.Codigo = _codigo;
             this.Nome = _nome;
             this.Email = _email;
             this.Senha = _senha;
-            this.DataCadastro = _dataCadastro;
+            this.DataCadastro = DateTime.Now;
         }
 
         // Metodos
