@@ -26,7 +26,7 @@ namespace ProjetoProduto.Classes
             return ($"{usuario.Nome} já está logado");
         }
 
-        void ILogin.Login()
+        public Login()
         {
             bool isInt;
             int opcInt;
