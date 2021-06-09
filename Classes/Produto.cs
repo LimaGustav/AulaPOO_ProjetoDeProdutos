@@ -54,9 +54,7 @@ namespace ProjetoProduto.Classes
             return Preco;
         }
 
-        public DateTime RetornaData () {
-            return DataCadastro;
-        }
+        
         public string RetornaNomeMarca() {
             return Marca.NomeMarca;
         }
