@@ -13,14 +13,14 @@ namespace ProjetoProduto.Classes
         private DateTime DataCadastro { get; set; }
         private Marca Marca { get; set; }
         private Usuario CadastradoPor { get; set; }
-        private List<Produto> ListaDeProdutos { get; set; }
+        public List<Produto> ListaDeProdutos = new List<Produto>();
         
         // Construtores
         public Produto() {
 
         }
 
-        public Produto(int _codigo, string _nomeProduto, float _preco, Marca _marca, Usuario _cadastradoPor ) {
+        public Produto(int _codigo, string _nomeProduto, float _preco, Marca _marca, Usuario _cadastradoPor) {
             this.Codigo = _codigo;
             this.NomeProduto = _nomeProduto;
             this.Preco = _preco;
@@ -61,6 +61,10 @@ namespace ProjetoProduto.Classes
 
         public Usuario RetornaUserCadastrou() {
             return CadastradoPor;
+        }
+
+        public DateTime RetornaData() {
+            return DataCadastro;
         }
 
         public List<Produto> Listar()
