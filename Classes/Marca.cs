@@ -8,7 +8,7 @@ namespace ProjetoProduto.Classes
     {
         // Atributos
         private int Codigo { get; set; }
-        private string NomeMarca { get; set; }
+        public string NomeMarca { get; set; }
         private DateTime DataCadastro { get; set; }
 
         // Construtores
