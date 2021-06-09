@@ -9,11 +9,6 @@ namespace ProjetoProduto.Classes
     {
         // Atributos
         public bool Logado { get; set; }
-        Usuario usuarioPai = new Usuario();
-        Marca marcaPai = new Marca();
-        Produto produtoPai = new Produto();
-        string emailLogin;
-        string senhaLogin;
         
         // Métodos
         public string Deslogar(Usuario usuario)
@@ -39,6 +34,13 @@ namespace ProjetoProduto.Classes
         // Construtor
         public Login()
         {
+            Usuario usuarioPai = new Usuario();
+            Marca marcaPai = new Marca();
+            Produto produtoPai = new Produto();
+
+            string emailLogin;
+            string senhaLogin;
+
             Console.Clear();
             bool isInt;
             int opcInt;
@@ -169,10 +171,10 @@ namespace ProjetoProduto.Classes
                     case 3: // Logar
                         Console.Clear();
                         Console.WriteLine("Digite o Email: ");
-                        string emailLogin = Console.ReadLine().Trim().ToLower();
+                        emailLogin = Console.ReadLine().Trim().ToLower();
                         
                         Console.WriteLine("Digite a senha: ");
-                        string senhaLogin = Console.ReadLine().Trim();
+                        senhaLogin = Console.ReadLine().Trim();
 
                         bool avaliou = usuarioPai.AvaliarEmailSenha(emailLogin, senhaLogin);
                         if (avaliou) {
@@ -334,6 +336,7 @@ namespace ProjetoProduto.Classes
                         break;
 
                     case 8: // Cadastrar produto
+                        Console.Clear();
                         Console.WriteLine("Identifique-se com seu email");
                         string emailIdentProd = Console.ReadLine().ToLower();
 
@@ -380,7 +383,14 @@ namespace ProjetoProduto.Classes
                                         if (marca.NomeMarca == marcaProduto)
                                         {
                                             codProduto += 1;
-                                            Console.WriteLine(produtoPai.Cadastrar(new Produto(codProduto,nomeProd,precoFloat,marcaPai.MarcaPeloNome(marcaProduto),usuarioPai.UserPeloEmail(emailIdentProd))));
+
+                                            Marca marcaProd = marcaPai.MarcaPeloNome(marcaProduto);
+                                            Usuario usuarioProd = usuarioPai.UserPeloEmail(emailIdentProd);
+                                            
+                                            Produto novoProduto = new Produto(codProduto,nomeProd,precoFloat,marcaProd,usuarioProd);
+
+                                            Console.Clear();
+                                            produtoPai.Cadastrar(novoProduto);
                                             c += 1;
                                         }
                                     } if (c == 0) {
@@ -389,6 +399,7 @@ namespace ProjetoProduto.Classes
                                         Console.ResetColor();
                                         Console.Write("Ainda quer cadastrar um produto? (S/N)");
                                         continuar = Console.ReadLine().ToLower().Trim().Substring(0,1);
+                                        Console.Clear();
                                     } else {
                                         continuar = "n";
                                     }
@@ -403,7 +414,7 @@ namespace ProjetoProduto.Classes
                             }
                         } else {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Email não cadastrado");
+                            Console.WriteLine("Senha ou Email invalidos");
                             Console.ResetColor();
                             Thread.Sleep(2000);
                             Console.Clear();
@@ -441,7 +452,7 @@ namespace ProjetoProduto.Classes
                                     Console.ForegroundColor = ConsoleColor.Green;
                                     foreach (Produto prod in produtoPai.Listar())
                                     {
-                                        Console.WriteLine($"- {prod.RetornaNome()} - {prod.RetornaNomeMarca()} - {prod.RetornaPreco()} - {prod.RetornaUserCadastrou().RetornarEmail()} - Codigo [{prod.RetornarCodigo()}]");
+                                        Console.WriteLine($"{prod.RetornaData()} - {prod.RetornaNome()} - {prod.RetornaNomeMarca()} - {prod.RetornaPreco()} - {prod.RetornaUserCadastrou().RetornarEmail()} - Codigo [{prod.RetornarCodigo()}]");
                                     }
                                     Console.ResetColor();
 
@@ -472,6 +483,14 @@ namespace ProjetoProduto.Classes
                             Console.Clear();
                         }
                                 break;
+
+                        case 0:
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.WriteLine("Obrigado por usar o sistema.");
+                            Console.ResetColor();
+                            Thread.Sleep(1000);
+                            break;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Opção invalida");

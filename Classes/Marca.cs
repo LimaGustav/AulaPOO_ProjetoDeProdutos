@@ -23,7 +23,7 @@ namespace ProjetoProduto.Classes
         }
         
         // Lista de Marcas
-        private List<Marca> listaMarcas = new List<Marca>();
+        public List<Marca> listaMarcas = new List<Marca>();
 
         // Métodos
         public string Cadastrar(Marca marca)
