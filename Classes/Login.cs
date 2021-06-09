@@ -10,6 +10,7 @@ namespace ProjetoProduto.Classes
         // Atributos
         public bool Logado { get; set; }
         Usuario usuarioPai = new Usuario();
+        Marca marcaPai = new Marca();
         string emailLogin;
         string senhaLogin;
         
@@ -41,6 +42,7 @@ namespace ProjetoProduto.Classes
             bool isInt;
             int opcInt;
             int codUser = 0;
+            int codMarca = 0;
             string senhaAdm = "lima";
 
             do
@@ -49,7 +51,10 @@ namespace ProjetoProduto.Classes
                 {
                     Console.WriteLine("O que você deseja fazer? ");
                     Console.WriteLine("Cadastrar usuário [1]\nDeletar usuário [2]");
-                    Console.Write("Logar [3]\nDeslogar [4]\n-> ");
+                    Console.WriteLine("Logar [3]\nDeslogar [4]");
+                    Console.WriteLine("Cadastrar marca [5]\nListar marca [6]\nDeletar marca [7]");
+                    Console.WriteLine("Cadastrar produto [8]\nListar produto [9]\nDeletar produto [10]");
+                    Console.Write("Sair [0]\n ->");
                     string opcString = Console.ReadLine().Trim();
                     isInt = int.TryParse(opcString, out opcInt);
                     if (!isInt) {
@@ -80,7 +85,7 @@ namespace ProjetoProduto.Classes
 
                             Console.WriteLine("Digite novamente a senha: ");
                             string confirmaSenha = Console.ReadLine();
-                            if (senhaUser == confirmaSenha) {
+                            if (senhaUser == confirmaSenha && senhaUser != "") {
                                 senhaCorreta = true;
                                 codUser += 1;
                                 Console.ForegroundColor = ConsoleColor.Green;
@@ -209,9 +214,112 @@ namespace ProjetoProduto.Classes
                             Thread.Sleep(1000);
                             Console.Clear();
                         }
-                        
-                        
                         break;
+
+                    case 5: // Cadastrar marca
+                        Console.WriteLine("Identifique-se com seu email");
+                        string emailIdentMarca = Console.ReadLine().ToLower();
+                        Console.Clear();
+
+                        bool emailCadastrado = usuarioPai.AvaliarEmail(emailIdentMarca); 
+                        if (emailCadastrado)
+                        {
+                            if (usuarioPai.UserPeloEmail(emailIdentMarca).Logado) {
+                                Console.WriteLine("Qual marca você deseja cadastar? ");
+                                string marca = Console.ReadLine().ToUpper().Trim();
+                                codMarca += 1;
+                                Console.Clear();
+
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(marcaPai.Cadastrar(new Marca(codMarca,marca)));
+
+                                Console.ResetColor();
+                                Thread.Sleep(2000);
+                                Console.Clear();
+                            } else {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Você precisa primeiro estar logado");
+                                Console.ResetColor();
+                                Thread.Sleep(3000);
+                                Console.Clear();
+                            }
+                        } else {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Email não cadastrado");
+                            Console.ResetColor();
+                            Thread.Sleep(2000);
+                            Console.Clear();
+                        }
+
+                        break;
+                    
+                    case 6: // Listar marcas
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("MARCAS\n\n");
+                        Console.ResetColor();
+        
+                        foreach (Marca marca in marcaPai.Listar())
+                        {
+                            Console.WriteLine($"- {marca.NomeMarca}");
+                        }
+                        Console.Write("\nAperter alguma tecla: ");
+                        string segura = Console.ReadLine();
+                        Console.Clear();
+
+                        break;
+
+                    case 7: // Deletar marca
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine("Digite a senha de Administrador: ");
+                        Console.ResetColor();
+                        senhaAdmConfirm = Console.ReadLine();
+
+
+                        if (senhaAdm == senhaAdmConfirm) {
+                            Console.Clear();
+                            foreach (Marca marca in marcaPai.Listar())
+                            {
+                                Console.WriteLine($"- {marca.NomeMarca} - Codigo: {marca.RetornarCodigo()}");
+                            }
+                            Console.WriteLine("Qual o codigo da marca que você quer deletar? ");
+                            string marcaDeleteStr = Console.ReadLine();
+
+                            int marcaDeleteInt;
+                            isInt = int.TryParse(marcaDeleteStr, out marcaDeleteInt);
+
+                            if (isInt)
+                            {
+                                marcaDeleteInt = int.Parse(marcaDeleteStr);
+                                if (marcaDeleteInt == 0)
+                                {   
+                                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                    Console.WriteLine("Nenhuma marca foi deletada");
+                                    Console.ResetColor();
+                                    Thread.Sleep(1000);
+                                    Console.Clear();
+                                } else {
+                                    Console.Clear();
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine(marcaPai.Deletar(marcaPai.Listar().Find(x => x.RetornarCodigo() == marcaDeleteInt)));
+                                    Console.ResetColor();
+                                    Thread.Sleep(1000);
+                                    Console.Clear();
+                                }
+                                
+                            }
+                        } else {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("Senha incorreta");
+                            Console.ResetColor();
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        }
+                        break;
+
+                    
+
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Opção invalida");
