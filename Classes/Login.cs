@@ -54,11 +54,11 @@ namespace ProjetoProduto.Classes
                 do
                 {
                     Console.WriteLine("O que você deseja fazer? ");
-                    Console.WriteLine("Cadastrar usuário [1]\nDeletar usuário [2]");
-                    Console.WriteLine("Logar [3]\nDeslogar [4]");
-                    Console.WriteLine("Cadastrar marca [5]\nListar marca [6]\nDeletar marca [7]");
-                    Console.WriteLine("Cadastrar produto [8]\nListar produto [9]\nDeletar produto [10]");
-                    Console.Write("Sair [0]\n ->");
+                    Console.WriteLine("1 - Cadastrar usuário\n2 - Deletar usuário");
+                    Console.WriteLine("3 - Logar\n4 - Deslogar");
+                    Console.WriteLine("5 - Cadastrar marca\n6 - Listar marca\n7 - Deletar marca");
+                    Console.WriteLine("8 - Cadastrar produto\n9 - Listar produto\n10 - Deletar produto");
+                    Console.Write("0 - Sair\n-> ");
                     string opcString = Console.ReadLine().Trim();
                     isInt = int.TryParse(opcString, out opcInt);
                     if (!isInt) {
