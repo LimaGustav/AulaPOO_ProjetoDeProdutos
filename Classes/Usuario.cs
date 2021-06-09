@@ -8,10 +8,14 @@ namespace ProjetoProduto.Classes
     {   
         // Atributos
 <<<<<<< HEAD
+<<<<<<< HEAD
         private int Codigo { get; set; }
 =======
         public int Codigo { get; set; }
 >>>>>>> login
+=======
+        public int Codigo { get; set; }
+>>>>>>> produto
         public string Nome { get; set; }
         private string Email { get; set; }
         private string Senha { get; set; }
