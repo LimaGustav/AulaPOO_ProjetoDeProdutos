@@ -61,9 +61,36 @@ namespace ProjetoProduto.Classes
             }
             return false;
         }
+
+        public bool AvaliarEmail(string _email) {
+            foreach (Usuario user in usuariosCadastrados)
+            {
+                if (user.Email == _email)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         
         public Usuario UserPeloEmail(string email) {
             return usuariosCadastrados.Find(x => x.Email == email);
+        }
+
+        public string LogarUsuario() {
+            if (!Logado) {
+                Logado = true;
+                return ($"{Nome} entrou");
+            }
+            return ($"{Nome} já esta logado");
+        }
+
+        public string DeslogarUsuario() {
+            if (Logado) {
+                Logado = false;
+                return ($"{Nome} saiu");
+            }
+            return ($"{Nome} não está logado");
         }
         
     }

@@ -19,18 +19,18 @@ namespace ProjetoProduto.Classes
             if (Logado)
             {
                 Logado = false;
-                return ($"{usuario.Nome} saiu");
+                return ("");
             }
-            return ($"{usuario.Nome} já está deslogado");
+            return ("");
         }
 
         public string Logar(Usuario usuario)
         {
             if (!Logado) {
                 Logado = true;
-                return ($"{usuario.Nome} entrou");
+                return ("");
             }
-            return ($"{usuario.Nome} já está logado");
+            return ("");
         }
 
 
@@ -169,7 +169,9 @@ namespace ProjetoProduto.Classes
                         bool avaliou = usuarioPai.AvaliarEmailSenha(emailLogin, senhaLogin);
                         if (avaliou) {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine(Logar(usuarioPai.UserPeloEmail(emailLogin)));
+                            Logar(usuarioPai.UserPeloEmail(emailLogin));
+
+                            Console.WriteLine(usuarioPai.UserPeloEmail(emailLogin).LogarUsuario());
                             Console.ResetColor();
                             Thread.Sleep(1000);
                             Console.Clear();
@@ -190,10 +192,24 @@ namespace ProjetoProduto.Classes
                         Console.ResetColor();
 
                         string emailDeslog = Console.ReadLine().ToLower();
-                        Console.WriteLine(Deslogar(usuarioPai.UserPeloEmail(emailDeslog)));
-                        Console.ResetColor();
-                        Thread.Sleep(1000);
-                        Console.Clear();
+                        bool emailValido = usuarioPai.AvaliarEmail(emailDeslog);
+                        if (emailValido)
+                        {
+                            Deslogar(usuarioPai.UserPeloEmail(emailDeslog));
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine(usuarioPai.UserPeloEmail(emailDeslog).DeslogarUsuario());
+
+                            Console.ResetColor();
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        } else {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Email invalido.");
+                            Console.ResetColor();
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        }
+                        
                         
                         break;
                     default:
