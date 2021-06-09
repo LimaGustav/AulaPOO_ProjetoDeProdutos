@@ -8,7 +8,7 @@ namespace ProjetoProduto.Classes
     {
         // Atributos
         private int Codigo { get; set; }
-        private string NomeMarca { get; set; }
+        public string NomeMarca { get; set; }
         private DateTime DataCadastro { get; set; }
 
         // Construtores
@@ -16,14 +16,14 @@ namespace ProjetoProduto.Classes
 
         }
 
-        public Marca(int _codigo, string _nomeMarca, DateTime _dataCadastro) {
+        public Marca(int _codigo, string _nomeMarca) {
             this.Codigo = _codigo;
             this.NomeMarca = _nomeMarca;
-            this.DataCadastro = _dataCadastro;
+            this.DataCadastro = DateTime.Now;
         }
         
         // Lista de Marcas
-        List<Marca> listaMarcas = new List<Marca>();
+        private List<Marca> listaMarcas = new List<Marca>();
 
         // Métodos
         public string Cadastrar(Marca marca)
@@ -38,6 +38,13 @@ namespace ProjetoProduto.Classes
             return ($"Marca {marca.NomeMarca} deletada");
         }
 
+        public int RetornarCodigo() {
+            return Codigo;
+        }
+
+        public Marca MarcaPeloNome(string _nomeMarca) {
+            return listaMarcas.Find(x => x.NomeMarca == _nomeMarca);
+        }
         public List<Marca> Listar()
         {
             return listaMarcas;
