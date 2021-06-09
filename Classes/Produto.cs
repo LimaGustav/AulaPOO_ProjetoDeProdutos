@@ -42,17 +42,29 @@ namespace ProjetoProduto.Classes
             return ($"O produto {produto.NomeProduto} foi removido");
         }
 
-        public string RetornaNome () {
-            return NomeProduto;
+        public int RetornarCodigo () {
+            return Codigo;
         }
 
-        public string RetornaNomeMarca() {
-            return Marca.NomeMarca;
+        public string RetornaNome () {
+            return NomeProduto;
         }
 
         public float RetornaPreco() {
             return Preco;
         }
+
+        public DateTime RetornaData () {
+            return DataCadastro;
+        }
+        public string RetornaNomeMarca() {
+            return Marca.NomeMarca;
+        }
+
+        public Usuario RetornaUserCadastrou() {
+            return CadastradoPor;
+        }
+
         public List<Produto> Listar()
         {
             return ListaDeProdutos;
