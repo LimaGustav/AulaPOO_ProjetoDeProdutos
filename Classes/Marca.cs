@@ -41,6 +41,10 @@ namespace ProjetoProduto.Classes
         public int RetornarCodigo() {
             return Codigo;
         }
+
+        public Marca MarcaPeloNome(string _nomeMarca) {
+            return listaMarcas.Find(x => x.NomeMarca == _nomeMarca);
+        }
         public List<Marca> Listar()
         {
             return listaMarcas;

@@ -11,6 +11,7 @@ namespace ProjetoProduto.Classes
         public bool Logado { get; set; }
         Usuario usuarioPai = new Usuario();
         Marca marcaPai = new Marca();
+        Produto produtoPai = new Produto();
         string emailLogin;
         string senhaLogin;
         
@@ -43,6 +44,7 @@ namespace ProjetoProduto.Classes
             int opcInt;
             int codUser = 0;
             int codMarca = 0;
+            int codProduto = 0;
             string senhaAdm = "lima";
 
             do
@@ -73,17 +75,17 @@ namespace ProjetoProduto.Classes
                         Console.WriteLine("Qual seu nome? ");
                         string nomeUser = Console.ReadLine().ToUpper();
 
-                        Console.WriteLine("Digite seu Email");
+                        Console.WriteLine("\nDigite seu Email");
                         string emailUser = Console.ReadLine().ToLower();
 
                         bool senhaCorreta;
 
                         do
                         {
-                            Console.WriteLine("Cadastre uma senha: ");
+                            Console.WriteLine("\nCadastre uma senha: ");
                             string senhaUser = Console.ReadLine();
 
-                            Console.WriteLine("Digite novamente a senha: ");
+                            Console.WriteLine("\nDigite novamente a senha: ");
                             string confirmaSenha = Console.ReadLine();
                             if (senhaUser == confirmaSenha && senhaUser != "") {
                                 senhaCorreta = true;
@@ -166,7 +168,7 @@ namespace ProjetoProduto.Classes
                     case 3: // Logar
                         Console.Clear();
                         Console.WriteLine("Digite o Email: ");
-                        string emailLogin = Console.ReadLine().Trim();
+                        string emailLogin = Console.ReadLine().Trim().ToLower();
                         
                         Console.WriteLine("Digite a senha: ");
                         string senhaLogin = Console.ReadLine().Trim();
@@ -217,12 +219,16 @@ namespace ProjetoProduto.Classes
                         break;
 
                     case 5: // Cadastrar marca
-                        Console.WriteLine("Identifique-se com seu email");
+                        Console.Clear();
+                        Console.WriteLine("Identifique-se com seu Email");
                         string emailIdentMarca = Console.ReadLine().ToLower();
+
+                        Console.WriteLine("Digite sua senha: ");
+                        string senhaIdentMarca = Console.ReadLine();
                         Console.Clear();
 
-                        bool emailCadastrado = usuarioPai.AvaliarEmail(emailIdentMarca); 
-                        if (emailCadastrado)
+                        bool valido = usuarioPai.AvaliarEmailSenha(emailIdentMarca,senhaIdentMarca); 
+                        if (valido)
                         {
                             if (usuarioPai.UserPeloEmail(emailIdentMarca).Logado) {
                                 Console.WriteLine("Qual marca você deseja cadastar? ");
@@ -245,7 +251,7 @@ namespace ProjetoProduto.Classes
                             }
                         } else {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Email não cadastrado");
+                            Console.WriteLine("Senha ou Email invalidos");
                             Console.ResetColor();
                             Thread.Sleep(2000);
                             Console.Clear();
@@ -318,7 +324,96 @@ namespace ProjetoProduto.Classes
                         }
                         break;
 
-                    
+                    case 8: // Cadastrar produto
+                        Console.WriteLine("Identifique-se com seu email");
+                        string emailIdentProd = Console.ReadLine().ToLower();
+
+                        Console.WriteLine("Digite sua senha: ");
+                        string senhaIdentProd = Console.ReadLine();
+                        Console.Clear();
+
+                        valido = usuarioPai.AvaliarEmailSenha(emailIdentProd,senhaIdentProd);
+                        if (valido)
+                        {
+                            if (usuarioPai.UserPeloEmail(emailIdentProd).Logado) {
+                                int c = 0;
+                                bool isFloat;
+                                string continuar = "s";
+                                float precoFloat;
+                                Console.Clear();
+
+                                Console.WriteLine("Qual o nome do produto?");
+                                string nomeProd = Console.ReadLine().ToUpper().Trim();
+
+                                do
+                                {
+                                   Console.Clear();
+                                    Console.WriteLine("Qual o preço do produto? ");
+                                    string precoStr = Console.ReadLine().Trim();
+                                    isFloat = float.TryParse(precoStr, out precoFloat);
+                                    if (isFloat) {
+                                        precoFloat = float.Parse(precoStr);
+                                    } else {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Digite apenas números");
+                                        Console.ResetColor();
+                                        Thread.Sleep(1000);
+                                    } 
+                                } while (!isFloat);
+                                
+                                do
+                                {
+                                    Console.WriteLine("Qual a marca do produto? ");
+                                    string marcaProduto = Console.ReadLine().ToUpper().Trim();
+
+                                    foreach (Marca marca in marcaPai.Listar())
+                                    {
+                                        if (marca.NomeMarca == marcaProduto)
+                                        {
+                                            codProduto += 1;
+                                            produtoPai.Cadastrar(new Produto(codProduto,nomeProd,precoFloat,marcaPai.MarcaPeloNome(marcaProduto),usuarioPai.UserPeloEmail(emailIdentProd)));
+                                            c += 1;
+                                        }
+                                    } if (c == 0) {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine($"Não existe nenhuma marca {marcaProduto}");
+                                        Console.ResetColor();
+                                        Console.Write("Ainda quer cadastrar um produto? (S/N)");
+                                        continuar = Console.ReadLine().ToLower().Trim().Substring(0,1);
+                                    }
+                                } while (continuar != "n");
+
+                            } else {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Você precisa primeiro estar logado");
+                                Console.ResetColor();
+                                Thread.Sleep(3000);
+                                Console.Clear();
+                            }
+                        } else {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Email não cadastrado");
+                            Console.ResetColor();
+                            Thread.Sleep(2000);
+                            Console.Clear();
+                        }
+
+                        break;
+
+                    case 9: // Listar produto
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("PRODUTOS\n\n");
+                        Console.ResetColor();
+        
+                        foreach (Produto produto in produtoPai.Listar())
+                        {
+                            Console.WriteLine($"{produto.RetornaNomeMarca()} - {produto.RetornaNome()} - {produto.RetornaPreco()}");
+                        }
+                        Console.Write("\nAperter alguma tecla: ");
+                        segura = Console.ReadLine();
+                        Console.Clear();
+                        break;
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
