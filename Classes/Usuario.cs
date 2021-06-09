@@ -93,5 +93,8 @@ namespace ProjetoProduto.Classes
             return ($"{Nome} não está logado");
         }
         
+        public string RetornarEmail() {
+            return Email;
+        }
     }
 }
