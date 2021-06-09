@@ -8,6 +8,7 @@ namespace ProjetoProduto
         static void Main(string[] args)
         {
             Login login = new Login();
+            Console.Clear();
         }
     }
 }
