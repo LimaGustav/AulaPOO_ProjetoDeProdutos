@@ -74,11 +74,37 @@ namespace ProjetoProduto.Classes
                 {
                     case 1: // Cadastrar usuário
                         Console.Clear();
-                        Console.WriteLine("Qual seu nome? ");
-                        string nomeUser = Console.ReadLine().ToUpper();
+                        string nomeUser;
+                        do
+                        {
+                            Console.WriteLine("Qual seu nome? ");
+                            nomeUser = Console.ReadLine().ToUpper();
+                            if (nomeUser == "")
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                Console.WriteLine("Digite um nome de usuário");
+                                Console.ResetColor();
+                                Thread.Sleep(1000);
+                                Console.Clear();
+                            }
+                        } while (nomeUser == "");
+                        
 
-                        Console.WriteLine("\nDigite seu Email");
-                        string emailUser = Console.ReadLine().ToLower();
+                        string emailUser;
+                        do
+                        {
+                            Console.WriteLine("\nDigite seu Email");
+                            emailUser = Console.ReadLine().ToLower();
+                            if (emailUser == "")
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                Console.WriteLine("Digite um email valido");
+                                Console.ResetColor();
+                                Thread.Sleep(1000);
+                                Console.Clear();
+                            }
+                        } while (emailUser == "");
+                        
 
                         bool senhaCorreta;
 
@@ -103,7 +129,7 @@ namespace ProjetoProduto.Classes
                                 senhaCorreta = false;
                                 Console.Clear();
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Senhas divergentes.");
+                                Console.WriteLine("Senhas divergentes ou vazias.");
                                 Console.ResetColor();
                             }
                         } while (!senhaCorreta);
@@ -144,11 +170,20 @@ namespace ProjetoProduto.Classes
                                         Thread.Sleep(1000);
                                         Console.Clear();
                                     } else {
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine(usuarioPai.Deletar(usuarioPai.usuariosCadastrados.Find(x => x.Codigo == userCodInt))); // Deleta o objeto que tem o codigo userCodInt
-                                        Thread.Sleep(1000);
-                                        Console.ResetColor();
-                                        Console.Clear();
+                                        if (userCodInt > codUser || userCodInt < 0)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("\nCodigo Invalido");
+                                            Console.ResetColor();
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+                                        } else {
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine(usuarioPai.Deletar(usuarioPai.usuariosCadastrados.Find(x => x.Codigo == userCodInt))); // Deleta o objeto que tem o codigo userCodInt
+                                            Thread.Sleep(1000);
+                                            Console.ResetColor();
+                                            Console.Clear();
+                                        }
                                     }
                                 } else {
                                     Console.ForegroundColor = ConsoleColor.Red;
@@ -270,7 +305,7 @@ namespace ProjetoProduto.Classes
         
                         foreach (Marca marca in marcaPai.Listar())
                         {
-                            Console.WriteLine($"- {marca.NomeMarca}");
+                            Console.WriteLine($"{marca.NomeMarca}");
                         }
                         Console.Write("\nAperter alguma tecla: ");
                         string segura = Console.ReadLine();
@@ -310,14 +345,22 @@ namespace ProjetoProduto.Classes
                                         Thread.Sleep(1000);
                                         Console.Clear();
                                     } else {
-                                        Console.Clear();
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine(marcaPai.Deletar(marcaPai.Listar().Find(x => x.RetornarCodigo() == marcaDeleteInt)));
-                                        Console.ResetColor();
-                                        Thread.Sleep(1000);
-                                        Console.Clear();
+                                        if (marcaDeleteInt > codMarca || marcaDeleteInt < 0)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("\nCodigo Invalido");
+                                            Console.ResetColor();
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+                                        } else {
+                                            Console.Clear();
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine(marcaPai.Deletar(marcaPai.Listar().Find(x => x.RetornarCodigo() == marcaDeleteInt)));
+                                            Console.ResetColor();
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+                                        }
                                     }
-                                    
                                 }
                             } else {
                                 Console.ForegroundColor = ConsoleColor.Red;
@@ -390,14 +433,18 @@ namespace ProjetoProduto.Classes
                                             Produto novoProduto = new Produto(codProduto,nomeProd,precoFloat,marcaProd,usuarioProd);
 
                                             Console.Clear();
-                                            produtoPai.Cadastrar(novoProduto);
+                                            Console.ForegroundColor = ConsoleColor.Green;
+                                            Console.WriteLine(produtoPai.Cadastrar(novoProduto));
+                                            Thread.Sleep(1000);
+                                            Console.ResetColor();
+                                            Console.Clear();
                                             c += 1;
                                         }
                                     } if (c == 0) {
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine($"Não existe nenhuma marca {marcaProduto}");
                                         Console.ResetColor();
-                                        Console.Write("Ainda quer cadastrar um produto? (S/N)");
+                                        Console.Write("Ainda quer cadastrar o produto? (S/N)");
                                         continuar = Console.ReadLine().ToLower().Trim().Substring(0,1);
                                         Console.Clear();
                                     } else {
@@ -430,7 +477,7 @@ namespace ProjetoProduto.Classes
         
                         foreach (Produto produto in produtoPai.Listar())
                         {
-                            Console.WriteLine($"{produto.RetornaNomeMarca()} - {produto.RetornaNome()} - {produto.RetornaPreco()}");
+                            Console.WriteLine($"{produto.RetornaNome()} - {produto.RetornaNomeMarca()} - {produto.RetornaPreco():C2}");
                         }
                         Console.Write("\nAperter alguma tecla: ");
                         segura = Console.ReadLine();
@@ -452,20 +499,47 @@ namespace ProjetoProduto.Classes
                                     Console.ForegroundColor = ConsoleColor.Green;
                                     foreach (Produto prod in produtoPai.Listar())
                                     {
-                                        Console.WriteLine($"{prod.RetornaData()} - {prod.RetornaNome()} - {prod.RetornaNomeMarca()} - {prod.RetornaPreco()} - {prod.RetornaUserCadastrou().RetornarEmail()} - Codigo [{prod.RetornarCodigo()}]");
+                                        Console.WriteLine($"{prod.RetornaData()} - {prod.RetornaNome()} - {prod.RetornaNomeMarca()} - {prod.RetornaPreco():C2} - {prod.RetornaUserCadastrou().RetornarEmail()} - Codigo [{prod.RetornarCodigo()}]");
                                     }
                                     Console.ResetColor();
 
-                                    Console.Write("Digite o código do produto que deseja deletar: ");
+                                    Console.Write("\nDigite o código do produto que deseja deletar: ");
                                     string prodDelStr = Console.ReadLine();
                                     int prodDelInt;
                                     isInt = int.TryParse(prodDelStr, out prodDelInt);
+
                                     if (isInt) {
                                         prodDelInt = int.Parse(prodDelStr);
                                     } else {
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine("Digite apenas números. ");
                                         Console.ResetColor();
+                                    }
+                                    
+                                    if (prodDelInt == 0)
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                        Console.WriteLine("Nenhum produto foi deletado");
+                                        Console.ResetColor();
+                                        Thread.Sleep(1000);
+                                        Console.Clear();
+                                    } else {
+                                        if (prodDelInt > codProduto || prodDelInt < 0)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("\nCodigo Invalido");
+                                            Console.ResetColor();
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+                                        } else {
+                                            Console.Clear();
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine(produtoPai.Deletar(produtoPai.ProdutoPeloCodigo(prodDelInt)));
+                                            Console.ResetColor();
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+
+                                        }
                                     }
                                 } else {
                                     Console.ForegroundColor = ConsoleColor.Red;

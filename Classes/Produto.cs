@@ -42,6 +42,10 @@ namespace ProjetoProduto.Classes
             return ($"O produto {produto.NomeProduto} foi removido");
         }
 
+        public Produto ProdutoPeloCodigo(int _codigo) {
+            return ListaDeProdutos.Find(x => x.Codigo == _codigo);
+        }
+
         public int RetornarCodigo () {
             return Codigo;
         }
