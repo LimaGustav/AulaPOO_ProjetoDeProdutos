@@ -197,6 +197,7 @@ namespace ProjetoProduto.Classes
                                 }
 
                             } else {
+                                Console.Clear();
                                 Console.ForegroundColor = ConsoleColor.DarkRed;
                                 Console.WriteLine("Senha incorreta");
                                 Console.ResetColor();
@@ -399,6 +400,7 @@ namespace ProjetoProduto.Classes
                                 Console.Clear();
                             } 
                         } else {
+                            Console.Clear();
                             Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine("\nSenha incorreta");
                             Console.ResetColor();
@@ -608,12 +610,13 @@ namespace ProjetoProduto.Classes
                                 } 
                                 
                             } else {
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine("Senha incorreta");
-                            Console.ResetColor();
-                            Thread.Sleep(1000);
-                            Console.Clear();
-                        }
+                                Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.DarkRed;
+                                Console.WriteLine("Senha incorreta");
+                                Console.ResetColor();
+                                Thread.Sleep(1000);
+                                Console.Clear();
+                            }
                                 break;
 
                         case 0:
