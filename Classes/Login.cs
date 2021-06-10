@@ -528,6 +528,7 @@ namespace ProjetoProduto.Classes
 
                     case 9: // Listar produto
                         Console.Clear();
+                        
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine("\tPRODUTOS\n\n");
                         Console.ResetColor();
