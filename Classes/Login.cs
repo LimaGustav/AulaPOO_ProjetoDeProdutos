@@ -74,6 +74,9 @@ namespace ProjetoProduto.Classes
                 {
                     case 1: // Cadastrar usuário
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.WriteLine("\tCadastro de Usuário\n");
+                        Console.ResetColor();
                         string nomeUser;
                         do
                         {
@@ -145,14 +148,14 @@ namespace ProjetoProduto.Classes
                                 int userCodInt;
                                 Console.Clear();
                                 Console.ForegroundColor = ConsoleColor.Blue;
-                                Console.WriteLine("USUARIOS\n\n");
+                                Console.WriteLine("\tUSUARIOS\n\n");
                                 Console.ResetColor();
                                 if (usuarioPai.usuariosCadastrados.Count != 0) {
                                     do
                                     {
                                         foreach (Usuario user in usuarioPai.usuariosCadastrados)
                                         {
-                                            Console.WriteLine($"{user.Nome} - Codigo: {user.Codigo}");
+                                            Console.WriteLine($"{user.RetornarEmail()} - [{user.Nome}] - Codigo: {user.Codigo}");
                                         }
                                         Console.Write("\nQual o codigo do usuário que você quer deletar? ");
                                         string userCodStr = Console.ReadLine().Trim();
@@ -205,10 +208,15 @@ namespace ProjetoProduto.Classes
 
                     case 3: // Logar
                         Console.Clear();
+
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("\tLOGIN\n\n");
+                        Console.ResetColor();
+
                         Console.WriteLine("Digite o Email: ");
                         emailLogin = Console.ReadLine().Trim().ToLower();
                         
-                        Console.WriteLine("Digite a senha: ");
+                        Console.WriteLine("\nDigite a senha: ");
                         senhaLogin = Console.ReadLine().Trim();
 
                         bool avaliou = usuarioPai.AvaliarEmailSenha(emailLogin, senhaLogin);
@@ -232,8 +240,12 @@ namespace ProjetoProduto.Classes
 
                     case 4: // Deslogar
                         Console.Clear();
+
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.WriteLine("\tDESLOGAR");
+
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine("Digite o email para confirmar: ");
+                        Console.WriteLine("\nDigite o email para confirmar: ");
                         Console.ResetColor();
 
                         string emailDeslog = Console.ReadLine().ToLower();
@@ -258,10 +270,15 @@ namespace ProjetoProduto.Classes
 
                     case 5: // Cadastrar marca
                         Console.Clear();
+
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.WriteLine("\tCADASTRO DE MARCA\n");
+                        Console.ResetColor();
+
                         Console.WriteLine("Identifique-se com seu Email");
                         string emailIdentMarca = Console.ReadLine().ToLower();
 
-                        Console.WriteLine("Digite sua senha: ");
+                        Console.WriteLine("\nDigite sua senha: ");
                         string senhaIdentMarca = Console.ReadLine();
                         Console.Clear();
 
@@ -269,6 +286,11 @@ namespace ProjetoProduto.Classes
                         if (valido)
                         {
                             if (usuarioPai.UserPeloEmail(emailIdentMarca).Logado) {
+
+                                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                                Console.WriteLine("\tCADASTRO DE MARCA\n");
+                                Console.ResetColor();
+
                                 Console.WriteLine("Qual marca você deseja cadastar? ");
                                 string marca = Console.ReadLine().ToUpper().Trim();
                                 codMarca += 1;
@@ -300,7 +322,7 @@ namespace ProjetoProduto.Classes
                     case 6: // Listar marcas
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine("MARCAS\n\n");
+                        Console.WriteLine("\tMARCAS\n\n");
                         Console.ResetColor();
         
                         foreach (Marca marca in marcaPai.Listar())
@@ -319,16 +341,20 @@ namespace ProjetoProduto.Classes
                         Console.WriteLine("Digite a senha de Administrador: ");
                         Console.ResetColor();
                         senhaAdmConfirm = Console.ReadLine();
+                        Console.Clear();
+
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("\tMARCAS\n\n");
+                        Console.ResetColor();
 
                         if (senhaAdm == senhaAdmConfirm) {
                             if (marcaPai.Listar().Count != 0)
                             {
-                                Console.Clear();
                                 foreach (Marca marca in marcaPai.Listar())
                                 {
                                     Console.WriteLine($"- {marca.NomeMarca} - Codigo: {marca.RetornarCodigo()}");
                                 }
-                                Console.WriteLine("Qual o codigo da marca que você quer deletar? ");
+                                Console.WriteLine("\nQual o codigo da marca que você quer deletar? ");
                                 string marcaDeleteStr = Console.ReadLine();
 
                                 int marcaDeleteInt;
@@ -339,6 +365,7 @@ namespace ProjetoProduto.Classes
                                     marcaDeleteInt = int.Parse(marcaDeleteStr);
                                     if (marcaDeleteInt == 0)
                                     {   
+                                        Console.Clear();
                                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("Nenhuma marca foi deletada");
                                         Console.ResetColor();
@@ -347,6 +374,7 @@ namespace ProjetoProduto.Classes
                                     } else {
                                         if (marcaDeleteInt > codMarca || marcaDeleteInt < 0)
                                         {
+                                            Console.Clear();
                                             Console.ForegroundColor = ConsoleColor.Red;
                                             Console.WriteLine("\nCodigo Invalido");
                                             Console.ResetColor();
@@ -363,6 +391,7 @@ namespace ProjetoProduto.Classes
                                     }
                                 }
                             } else {
+                                Console.Clear();
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Nenhuma marca cadastrada");
                                 Thread.Sleep(2000);
@@ -371,7 +400,7 @@ namespace ProjetoProduto.Classes
                             } 
                         } else {
                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine("Senha incorreta");
+                            Console.WriteLine("\nSenha incorreta");
                             Console.ResetColor();
                             Thread.Sleep(1000);
                             Console.Clear();
@@ -380,10 +409,15 @@ namespace ProjetoProduto.Classes
 
                     case 8: // Cadastrar produto
                         Console.Clear();
+
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("\tCADASTRO DE PRODUTOS\n");
+                        Console.ResetColor();
+
                         Console.WriteLine("Identifique-se com seu email");
                         string emailIdentProd = Console.ReadLine().ToLower();
 
-                        Console.WriteLine("Digite sua senha: ");
+                        Console.WriteLine("\nDigite sua senha: ");
                         string senhaIdentProd = Console.ReadLine();
                         Console.Clear();
 
@@ -395,15 +429,17 @@ namespace ProjetoProduto.Classes
                                 bool isFloat;
                                 string continuar = "s";
                                 float precoFloat;
-                                Console.Clear();
+
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.WriteLine("\tCADASTRO DE PRODUTOS\n");
+                                Console.ResetColor();
 
                                 Console.WriteLine("Qual o nome do produto?");
                                 string nomeProd = Console.ReadLine().ToUpper().Trim();
 
                                 do
                                 {
-                                   Console.Clear();
-                                    Console.WriteLine("Qual o preço do produto? ");
+                                    Console.WriteLine("\nQual o preço do produto? ");
                                     string precoStr = Console.ReadLine().Trim();
                                     isFloat = float.TryParse(precoStr, out precoFloat);
                                     if (isFloat) {
@@ -416,9 +452,10 @@ namespace ProjetoProduto.Classes
                                     } 
                                 } while (!isFloat);
                                 
+                                bool check = false;
                                 do
                                 {
-                                    Console.WriteLine("Qual a marca do produto? ");
+                                    Console.WriteLine("\nQual a marca do produto? ");
                                     string marcaProduto = Console.ReadLine().ToUpper().Trim();
 
                                     foreach (Marca marca in marcaPai.Listar())
@@ -444,13 +481,33 @@ namespace ProjetoProduto.Classes
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine($"Não existe nenhuma marca {marcaProduto}");
                                         Console.ResetColor();
-                                        Console.Write("Ainda quer cadastrar o produto? (S/N)");
-                                        continuar = Console.ReadLine().ToLower().Trim().Substring(0,1);
-                                        Console.Clear();
-                                    } else {
-                                        continuar = "n";
+
+                                        bool opcInvalida = false;
+                                        do
+                                        {
+                                            Console.Write("Ainda quer cadastrar o produto? (S/N) ");
+                                            continuar = Console.ReadLine().ToLower().Trim().Substring(0,1);
+                                            Console.Clear();
+
+                                            switch (continuar)
+                                            {
+                                                case "s":
+                                                    check = true;
+                                                    break;
+                                                case "n":
+                                                    check = false;
+                                                    break;
+                                                default:
+                                                    Console.ForegroundColor = ConsoleColor.Red;
+                                                    Console.WriteLine("Opção invalida");
+                                                    Console.ResetColor();
+                                                    opcInvalida = true;
+                                                    check = false;
+                                                    break;
+                                            }
+                                        } while (opcInvalida);  
                                     }
-                                } while (continuar != "n");
+                                } while (check);
 
                             } else {
                                 Console.ForegroundColor = ConsoleColor.Red;
@@ -471,8 +528,9 @@ namespace ProjetoProduto.Classes
 
                     case 9: // Listar produto
                         Console.Clear();
+                        
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine("PRODUTOS\n\n");
+                        Console.WriteLine("\tPRODUTOS\n\n");
                         Console.ResetColor();
         
                         foreach (Produto produto in produtoPai.Listar())
